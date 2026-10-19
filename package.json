@@ -1,0 +1,27 @@
+{
+  "name": "health-tramiter-api",
+  "version": "1.0.0",
+  "description": "MVP modular de Health Tramiter API.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "check": "find src -name '*.js' -print0 | xargs -0 -n1 node --check",
+    "migrate": "knex --knexfile knexfile.js migrate:latest",
+    "migrate:rollback": "knex --knexfile knexfile.js migrate:rollback",
+    "migrate:make": "knex --knexfile knexfile.js migrate:make"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "mysql2": "^3.14.3",
+    "knex": "^2.5.1",
+    "cookie-parser": "^1.4.6",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": { "nodemon": "^3.1.10" }
+}

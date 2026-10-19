@@ -1,0 +1,41 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Logs y diagnósticos
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Cobertura de tests
+coverage/
+.nyc_output/
+
+# Build / caché
+dist/
+.cache/
+*.tsbuildinfo
+
+# IDEs y SO
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Backups de base de datos (no subir dumps con datos reales)
+database/backups/
+*.sql.gz
+*.dump
+
+# Credenciales locales
+**/credenciales.json
+**/*credentials*.json
+**/*secret*.json

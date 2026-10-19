@@ -1,0 +1,11 @@
+const db = require('../../config/database');
+const projection = `u.id, u.first_name AS firstName, u.last_name AS lastName, u.email, u.identification_number AS identificationNumber, u.created_at AS createdAt, u.updated_at AS updatedAt, r.id AS roleId, r.name AS role, it.id AS identificationTypeId, it.code AS identificationTypeCode, it.name AS identificationType`;
+const joins = ' FROM users u INNER JOIN roles r ON r.id = u.role_id INNER JOIN identification_types it ON it.id = u.identification_type_id';
+exports.findAll = async () => (await db.query(`SELECT ${projection}${joins} ORDER BY u.created_at DESC`))[0];
+exports.findById = async (id) => (await db.query(`SELECT ${projection}${joins} WHERE u.id = ?`, [id]))[0][0];
+exports.exists = async (email) => (await db.query('SELECT id FROM users WHERE email = ?', [email]))[0][0];
+exports.findByDocument = async (typeId, number) => (await db.query('SELECT id FROM users WHERE identification_type_id = ? AND identification_number = ?', [typeId, number]))[0][0];
+exports.create = async (data) => { const [r] = await db.query('INSERT INTO users (first_name, last_name, email, password_hash, identification_type_id, identification_number, role_id) VALUES (?, ?, ?, ?, ?, ?, ?)', [data.firstName, data.lastName, data.email, data.passwordHash, data.identificationTypeId, data.identificationNumber, data.roleId]); return exports.findById(r.insertId); };
+exports.update = async (id, data) => { await db.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, identification_type_id = ?, identification_number = ?, role_id = ? WHERE id = ?', [data.firstName, data.lastName, data.email, data.identificationTypeId, data.identificationNumber, data.roleId, id]); return exports.findById(id); };
+exports.delete = async (id) => { await db.query('DELETE FROM users WHERE id = ?', [id]); };
+exports.setPassword = async (id, passwordHash) => { await db.query('UPDATE users SET password_hash = ? WHERE id = ?', [passwordHash, id]); return exports.findById(id); };

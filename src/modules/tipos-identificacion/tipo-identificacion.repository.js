@@ -1,0 +1,1 @@
+const BaseRepository = require('../../core/repositories/base-repository'); const queries = require('./tipo-identificacion.query'); class TipoIdentificacionRepository extends BaseRepository { constructor() { super(queries); } } module.exports = new TipoIdentificacionRepository();

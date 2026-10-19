@@ -1,0 +1,2 @@
+const { body } = require('express-validator'); const validationHandler = require('../../middlewares/validation-handler'); const { validateId } = require('../../validators/common.validator');
+exports.create = [body('code').trim().notEmpty().isLength({ max: 10 }).withMessage('El código es obligatorio'), body('name').trim().notEmpty().isLength({ max: 100 }).withMessage('El nombre es obligatorio'), validationHandler]; exports.update = [validateId(), ...exports.create]; exports.byId = [validateId(), validationHandler];
